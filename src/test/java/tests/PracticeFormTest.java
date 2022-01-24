@@ -1,9 +1,6 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
@@ -11,17 +8,8 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 
-public class PracticeFormTest {
+public class PracticeFormTest extends TestBase {
 
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
-        Configuration.browserCapabilities = capabilities;
-    }
 
     @Test
     void fillFromTest() {
@@ -55,12 +43,12 @@ public class PracticeFormTest {
         $("[class*=modal-content]").should(visible);
         $(byText("Thanks for submitting the form")).should(appear);
         $(".table-responsive").shouldHave(text("Viktor")
-                ,text("Slon")
-                ,text("viktornuts@gmail.com")
-                ,text("8955245541")
-                ,text("21 June,1990")
-                ,text("Nikolaya Shishka 21")
-                ,text("Rajasthan Jaiselmer"));
+                , text("Slon")
+                , text("viktornuts@gmail.com")
+                , text("8955245541")
+                , text("21 June,1990")
+                , text("Nikolaya Shishka 21")
+                , text("Rajasthan Jaiselmer"));
         $("#closeLargeModal").should(visible);
     }
-    }
+}

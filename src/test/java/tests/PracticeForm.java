@@ -1,4 +1,4 @@
-package guru.qa.tests;
+package tests;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Configuration;
@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 
@@ -19,37 +21,35 @@ public class PracticeForm {
 
     @Test
     void fillFromTest() {
-        open("https://demoqa.com/automation-practice-form");
-        $("#firstName").setValue("Viktor");
-        $("#lastName").setValue("Slon");
-        $("#userEmail").setValue("viktornuts@gmail.com");
+        open("/automation-practice-form");
+        $("#firstName").setValue("Liza");
+        $("#lastName").setValue("Petrova");
+        $("#userEmail").setValue("petro@mail.ru");
         $("[for='gender-radio-1']").click();
-        $("#userNumber").setValue("8955245541");
-
+        $("#userNumber").setValue("89009000505");
         $("#dateOfBirthInput").click();
-        $("[class='react-datepicker__month-select']").selectOption("June");
-        $("[class='react-datepicker__year-select']").selectOption("1990");
-        $("[class*='react-datepicker__day--021']").click();
+        $("[class*='month-select']").selectOptionByValue("5");
+        $("[class*='year-select']").selectOptionByValue("1988");
+        $("[class*='datepicker__day--010']").click();
+        $("#subjectsInput").setValue("Arts").pressEnter();
+        $("[for*='hobbies-checkbox-2']").click();
+        //File file = new File("src/test/resources/b2b.jpg");
+        //$("[class*='form-control-file']").uploadFile(file);
+        $("#currentAddress").setValue("Tomsk, Lenina 56-2");
+        $("#react-select-3-input").setValue("Haryana").pressEnter();
+        $("#react-select-4-input").setValue("Karnal").pressEnter();
+        $("#submit").scrollIntoView(true).click();;
 
-        $("#subjectsInput").setValue("English").pressEnter();
-        $("#subjectsInput").setValue("Maths").pressEnter();
-
-        $("[for='hobbies-checkbox-1']").click();
-        $("[for='hobbies-checkbox-2']").click();
-
-        File lesson = new File("src/test/java/guru/qa/files/lesson1.png");
-        String path = lesson.getAbsolutePath();
-        $("#uploadPicture").sendKeys(path);
-
-        $("[placeholder='Current Address']").setValue("Nikolaya Shishka 21");
-        $("[placeholder='Current Address']").scrollIntoView(true);
-        $("#react-select-3-input").setValue("Raj").pressEnter();
-        $("#react-select-4-input").setValue("Jaise").pressEnter();
-        $("#submit").click();
-
-        $$x("//*[@class='modal-body']//td[2]").shouldHave(CollectionCondition.exactTexts(
-                "Viktor Slon", "viktornuts@gmail.com", "Male", "8955245541", "21 June,1990",
-                "English, Maths", "Sports, Reading", "lesson1.png", "Nikolaya Shishka 21", "Rajasthan Jaiselmer"));
+        $("[class*=modal-content]").should(visible);
+        $(byText("Thanks for submitting the form")).should(appear);
+        $(".table-responsive").shouldHave(text("Liza")
+                ,text("Petrova")
+                ,text("petro@mail.ru")
+                ,text("8900900050")
+                ,text("10 June,1988")
+                ,text("Tomsk, Lenina 56-2")
+                ,text("Haryana Karnal"));
+        $("#closeLargeModal").should(visible);
     }
 
 

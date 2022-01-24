@@ -1,12 +1,14 @@
 package tests;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 
 public class PracticeFormTest {
@@ -41,7 +43,7 @@ public class PracticeFormTest {
         $("[for='hobbies-checkbox-1']").click();
         $("[for='hobbies-checkbox-2']").click();
 
-        $("#uploadPicture").uploadFromClasspath("img/1.png");
+        //$("#uploadPicture").uploadFromClasspath("img/1.png");
 
         $("[placeholder='Current Address']").setValue("Nikolaya Shishka 21");
         $("[placeholder='Current Address']").scrollIntoView(true);
@@ -49,10 +51,16 @@ public class PracticeFormTest {
         $("#react-select-4-input").setValue("Jaise").pressEnter();
         $("#submit").click();
 
-        $$x("//*[@class='modal-body']//td[2]").shouldHave(CollectionCondition.exactTexts(
-                "Viktor Slon", "viktornuts@gmail.com", "Male", "8955245541", "21 June,1990",
-                "English, Maths", "Sports, Reading", "lesson1.png", "Nikolaya Shishka 21", "Rajasthan Jaiselmer"));
+
+        $("[class*=modal-content]").should(visible);
+        $(byText("Thanks for submitting the form")).should(appear);
+        $(".table-responsive").shouldHave(text("Viktor")
+                ,text("Slon")
+                ,text("viktornuts@gmail.com")
+                ,text("8955245541")
+                ,text("21 June,1990")
+                ,text("Nikolaya Shishka 21")
+                ,text("Rajasthan Jaiselmer"));
+        $("#closeLargeModal").should(visible);
     }
-
-
-}
+    }

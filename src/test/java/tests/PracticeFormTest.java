@@ -37,7 +37,7 @@ public class PracticeFormTest {
         $("[for='hobbies-checkbox-1']").click();
         $("[for='hobbies-checkbox-2']").click();
 
-        File lesson = new File("src/test/java/guru/qa/files/lesson1.png");
+        File lesson = new File("tests/lesson1.png");
         String path = lesson.getAbsolutePath();
         $("#uploadPicture").sendKeys(path);
 

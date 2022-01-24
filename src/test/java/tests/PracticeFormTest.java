@@ -6,8 +6,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.File;
-
 import static com.codeborne.selenide.Selenide.*;
 
 
@@ -43,9 +41,7 @@ public class PracticeFormTest {
         $("[for='hobbies-checkbox-1']").click();
         $("[for='hobbies-checkbox-2']").click();
 
-        File lesson = new File("tests/lesson1.png");
-        String path = lesson.getAbsolutePath();
-        $("#uploadPicture").sendKeys(path);
+        $("#uploadPicture").uploadFromClasspath("img/1.png");
 
         $("[placeholder='Current Address']").setValue("Nikolaya Shishka 21");
         $("[placeholder='Current Address']").scrollIntoView(true);

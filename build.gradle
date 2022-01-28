@@ -39,6 +39,8 @@ tasks.withType(Test) {
     useJUnitPlatform()
     systemProperties(System.getProperties())
 
+    //    systemProperty("environment", System.getProperty("environment", "stage")) // preprod, prod, stage
+
     testLogging {
         lifecycle {
 //            events "started", "failed"

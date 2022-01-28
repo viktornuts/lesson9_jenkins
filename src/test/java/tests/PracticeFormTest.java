@@ -31,7 +31,7 @@ public class PracticeFormTest extends TestBase {
         $("[for='hobbies-checkbox-1']").click();
         $("[for='hobbies-checkbox-2']").click();
 
-        //$("#uploadPicture").uploadFromClasspath("img/1.png");
+        $("#uploadPicture").uploadFromClasspath("img/1.png");
 
         $("[placeholder='Current Address']").setValue("Nikolaya Shishka 21");
         $("[placeholder='Current Address']").scrollIntoView(true);

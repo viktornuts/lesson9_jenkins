@@ -19,14 +19,14 @@ public class TestBase {
     @BeforeAll
     static void setUp() {
 
-        CredentialsConfig config = ConfigFactory.create(CredentialsConfig.class);
-        String login = config.login();
-        String password = config.password();
-        String remoteUrl = format("https://%s:%s@selenoid.autotests.cloud/wd/hub", login, password);
+//        CredentialsConfig config = ConfigFactory.create(CredentialsConfig.class);
+//        String login = config.login();
+//        String password = config.password();
+//        String remoteUrl = format("https://%s:%s@selenoid.autotests.cloud/wd/hub", login, password);
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = remoteUrl;
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
